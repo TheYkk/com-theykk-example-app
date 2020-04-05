@@ -13,8 +13,9 @@ kind: pipeline
 name: default
 steps:
 - name: build test image
-  image: docker:latest
-  environment
+  image: docker
+  environment:
+    <<: *default_environment
   volumes:
     - name: docker_sock
       path: /var/run/docker.sock
