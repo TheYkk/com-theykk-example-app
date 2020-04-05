@@ -1,0 +1,29 @@
+---
+global-variables:
+  .login_docker: &login_docker |
+    echo "${PASSWORD}" | docker login -u ykk --password-stdin theykk.com
+  environment: &default_environment
+    PASSWORD:
+      from_secret: password
+    CONTAINER_GENERAL_IMAGE: "theykk.com/ykk/test:${DRONE_BRANCH}_${DRONE_COMMIT_SHA}"
+    CONTAINER_TAGGED_IMAGE: "theykk.com/ykk/test:${DRONE_TAG}"
+    CONTAINER_LATEST_IMAGE: "theykk.com/ykk/test:latest"
+
+kind: pipeline
+name: default
+steps:
+- name: build test image
+  image: docker:latest
+  environment
+  volumes:
+    - name: docker_sock
+      path: /var/run/docker.sock
+  commands:
+    - *login_docker
+    - DOCKER_BUILDKIT=1 docker build -t ${CONTAINER_GENERAL_IMAGE} .
+---
+kind: secret
+name: password
+get:
+  path: com-theykk-drone-example
+  name: password
