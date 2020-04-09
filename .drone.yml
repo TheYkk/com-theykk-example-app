@@ -16,6 +16,10 @@ name: default
 clone:
   disable: true
 steps:
+  - name: test
+    image: golang:1.13-alpine3.11
+    commands:
+      - "go test"
   - name: publish
     image: plugins/docker
     settings:
