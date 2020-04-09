@@ -23,6 +23,8 @@ steps:
   environment:
     PASSWORD23:
       from_secret: password2
+    PASSWORD4:
+      from_secret: PASSWORD
   commands:
   - echo hello
   - echo world
