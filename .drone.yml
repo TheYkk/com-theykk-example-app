@@ -21,7 +21,9 @@ steps:
     settings:
       repo: theykk.com/ykk/drone-example
       registry: theykk.com
-      tags: [ "${DRONE_COMMIT_SHA:0:7}","latest" ]
+      auto_tag: true
+      debug: true
+      tags: [ "${DRONE_BRANCH}_${DRONE_COMMIT_SHA:0:7}","latest" ]
       username: "ykk"
       password:
         from_secret: password
