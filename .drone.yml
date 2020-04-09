@@ -32,6 +32,7 @@ clone:
 steps:
 - name: build test image
   image: docker
+  tty: true
   environment:
     <<: *default_environment
   commands:
