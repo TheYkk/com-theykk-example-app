@@ -17,13 +17,13 @@ clone:
   disable: true
 steps:
   - name: publish
-  image: plugins/docker
-  settings:
-    repo: theykk/com-theykk-example-app
-    tags: [ "${DRONE_COMMIT_SHA:0:7}","latest" ]
-    username: "ykk"
-    password:
-      from_secret: password
+    image: plugins/docker
+    settings:
+      repo: theykk/com-theykk-example-app
+      tags: [ "${DRONE_COMMIT_SHA:0:7}","latest" ]
+      username: "ykk"
+      password:
+        from_secret: password
 # - name: build test image
 #   image: docker
 #   tty: true
