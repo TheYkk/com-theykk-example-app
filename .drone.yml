@@ -1,36 +1,48 @@
 ---
-global-variables:
-  .login_docker: &login_docker |
-    echo "${PASSWORD}" | docker login -u ykk --password-stdin theykk.com
-  environment: &default_environment
-    PASSWORD:
-      from_secret: password
-    CONTAINER_GENERAL_IMAGE: "theykk.com/ykk/test:${DRONE_BRANCH}_${DRONE_COMMIT_SHA}"
-    CONTAINER_TAGGED_IMAGE: "theykk.com/ykk/test:${DRONE_TAG}"
-    CONTAINER_LATEST_IMAGE: "theykk.com/ykk/test:latest"
+# global-variables:
+#   .login_docker: &login_docker |
+#     echo "${PASSWORD}" | docker login -u ykk --password-stdin theykk.com
+#   environment: &default_environment
+#     PASSWORD:
+#       from_secret: password
+#     CONTAINER_GENERAL_IMAGE: "theykk.com/ykk/test:${DRONE_BRANCH}_${DRONE_COMMIT_SHA}"
+#     CONTAINER_TAGGED_IMAGE: "theykk.com/ykk/test:${DRONE_TAG}"
+#     CONTAINER_LATEST_IMAGE: "theykk.com/ykk/test:latest"
 
 kind: pipeline
-name: default
 type: kubernetes
+name: default
 
+clone:
+  disable: true
+  
 steps:
-- name: build test image
-  image: docker
-  environment:
-    <<: *default_environment
-  volumes:
-  - name: dockersock
-    path: /var/run/docker.sock
+- name: test
+  pull: if-not-exists
+  image: alpine
   commands:
-    - *login_docker
-    - DOCKER_BUILDKIT=1 docker build -t ${CONTAINER_GENERAL_IMAGE} .
-volumes:
-- name: dockersock
-  host:
-    path: /var/run/docker.sock
----
-kind: secret
-name: password
-get:
-  path: com-theykk-drone-example
-  name: password
+  - echo hello
+  - echo world
+  - env
+  - exit 0
+# steps:
+# - name: build test image
+#   image: docker
+#   environment:
+#     <<: *default_environment
+#   volumes:
+#   - name: dockersock
+#     path: /var/run/docker.sock
+#   commands:
+#     - *login_docker
+#     - DOCKER_BUILDKIT=1 docker build -t ${CONTAINER_GENERAL_IMAGE} .
+# volumes:
+# - name: dockersock
+#   host:
+#     path: /var/run/docker.sock
+# ---
+# kind: secret
+# name: password
+# get:
+#   path: com-theykk-drone-example
+#   name: password
