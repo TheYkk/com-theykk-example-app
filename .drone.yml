@@ -20,6 +20,9 @@ steps:
 - name: test
   pull: if-not-exists
   image: alpine
+  environment:
+    PASSWORD23:
+      from_secret: password2
   commands:
   - echo hello
   - echo world
@@ -40,9 +43,9 @@ steps:
 # - name: dockersock
 #   host:
 #     path: /var/run/docker.sock
-# ---
-# kind: secret
-# name: password
-# get:
-#   path: com-theykk-drone-example
-#   name: password
+---
+kind: secret
+name: password2
+get:
+  path: com-theykk-drone-example
+  name: password
