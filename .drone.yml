@@ -5,7 +5,7 @@ name: linux-amd64
 
 steps:
 - name: test
-  image: golang:1.13.0
+  image: theykk.com/library/go:1.13-alpine
   commands:
   - go test ./...
   
@@ -24,3 +24,9 @@ steps:
     event:
     - push
     - tag
+---
+kind: secret
+name: password
+get:
+  path: com-theykk-drone-example
+  name: password    
