@@ -15,20 +15,6 @@ name: default
 
 clone:
   disable: true
-  
-# steps:
-# - name: test
-#   pull: if-not-exists
-#   image: alpine
-#   environment:
-#     PASSWORD:
-#       from_secret: password
-#   commands:
-#   - echo hello
-#   - echo world
-#   - env
-#   - echo $PASSWORD4 | base64
-#   - exit 0
 steps:
 - name: publish
  image: plugins/docker
