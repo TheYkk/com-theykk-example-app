@@ -1,47 +1,26 @@
 ---
-# global-variables:
-#   .login_docker: &login_docker |
-#     echo "${PASSWORD}" | docker login -u ykk --password-stdin theykk.com
-#   environment: &default_environment
-#     PASSWORD:
-#       from_secret: password
-#     CONTAINER_GENERAL_IMAGE: "theykk.com/ykk/test:${DRONE_BRANCH}_${DRONE_COMMIT_SHA}"
-#     CONTAINER_TAGGED_IMAGE: "theykk.com/ykk/test:${DRONE_TAG}"
-#     CONTAINER_LATEST_IMAGE: "theykk.com/ykk/test:latest"
-
 kind: pipeline
 type: kubernetes
-name: default
+name: linux-amd64
 
-clone:
-  disable: true
 steps:
-  - name: test
-    image: theykk.com/library/go:1.13-alpine
-    commands:
-      - "go test"
-  - name: publish
-    image: plugins/docker
-    settings:
-      repo: theykk.com/ykk/drone-example
-      registry: theykk.com
-      auto_tag: true
-      debug: true
-      tags: [ "${DRONE_BRANCH}_${DRONE_COMMIT_SHA:0:7}","latest" ]
-      username: "ykk"
-      password:
-        from_secret: password
-# - name: build test image
-#   image: docker
-#   tty: true
-#   environment:
-#     <<: *default_environment
-#   commands:
-#     - *login_docker
-#     - docker build -t ${CONTAINER_GENERAL_IMAGE} .
----
-kind: secret
-name: password
-get:
-  path: com-theykk-drone-example
-  name: password
+- name: test
+  image: golang:1.13.0
+  commands:
+  - go test ./...
+  
+- name: publish
+  image: plugins/docker:18
+  settings:
+    repo: theykk.com/ykk/drone-example
+    registry: theykk.com
+    auto_tag: true
+    debug: true
+    tags: [ "${DRONE_BRANCH}_${DRONE_COMMIT_SHA:0:7}","latest" ]
+    username: "ykk"
+    password:
+      from_secret: password
+  when:
+    event:
+    - push
+    - tag
