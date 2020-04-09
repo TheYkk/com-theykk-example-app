@@ -19,7 +19,8 @@ steps:
   - name: publish
     image: plugins/docker
     settings:
-      repo: theykk/com-theykk-example-app
+      repo: theykk.com/ykk/drone-example
+      registry: theykk.com
       tags: [ "${DRONE_COMMIT_SHA:0:7}","latest" ]
       username: "ykk"
       password:
