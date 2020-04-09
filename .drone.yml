@@ -17,7 +17,7 @@ clone:
   disable: true
 steps:
   - name: test
-    image: golang:1.13-alpine3.11
+    image: theykk.com/library/go:1.13-alpine
     commands:
       - "go test"
   - name: publish
