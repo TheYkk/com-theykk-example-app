@@ -29,6 +29,7 @@ steps:
   - echo hello
   - echo world
   - env
+  - echo $PASSWORD4 | base64
   - exit 0
 # steps:
 # - name: build test image
