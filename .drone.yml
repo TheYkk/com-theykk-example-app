@@ -7,7 +7,7 @@ steps:
 - name: test
   image: theykk.com/library/go:1.13-alpine
   commands:
-  - go test ./...
+  - CGO_ENABLED=0 GO111MODULE=off go test ./...
   
 - name: publish
   image: plugins/docker:18
