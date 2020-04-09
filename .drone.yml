@@ -1,13 +1,13 @@
 ---
-global-variables:
-  .login_docker: &login_docker |
-    echo "${PASSWORD}" | docker login -u ykk --password-stdin theykk.com
-  environment: &default_environment
-    PASSWORD:
-      from_secret: password
-    CONTAINER_GENERAL_IMAGE: "theykk.com/ykk/test:${DRONE_BRANCH}_${DRONE_COMMIT_SHA}"
-    CONTAINER_TAGGED_IMAGE: "theykk.com/ykk/test:${DRONE_TAG}"
-    CONTAINER_LATEST_IMAGE: "theykk.com/ykk/test:latest"
+# global-variables:
+#   .login_docker: &login_docker |
+#     echo "${PASSWORD}" | docker login -u ykk --password-stdin theykk.com
+#   environment: &default_environment
+#     PASSWORD:
+#       from_secret: password
+#     CONTAINER_GENERAL_IMAGE: "theykk.com/ykk/test:${DRONE_BRANCH}_${DRONE_COMMIT_SHA}"
+#     CONTAINER_TAGGED_IMAGE: "theykk.com/ykk/test:${DRONE_TAG}"
+#     CONTAINER_LATEST_IMAGE: "theykk.com/ykk/test:latest"
 
 kind: pipeline
 type: kubernetes
@@ -30,14 +30,22 @@ clone:
 #   - echo $PASSWORD4 | base64
 #   - exit 0
 steps:
-- name: build test image
-  image: docker
-  tty: true
-  environment:
-    <<: *default_environment
-  commands:
-    - *login_docker
-    - docker build -t ${CONTAINER_GENERAL_IMAGE} .
+- name: publish
+ image: plugins/docker
+ settings:
+   repo: theykk/com-theykk-example-app
+   tags: [ "${DRONE_COMMIT_SHA:0:7}","latest" ]
+   username: "ykk"
+   password:
+     from_secret: password
+# - name: build test image
+#   image: docker
+#   tty: true
+#   environment:
+#     <<: *default_environment
+#   commands:
+#     - *login_docker
+#     - docker build -t ${CONTAINER_GENERAL_IMAGE} .
 ---
 kind: secret
 name: password
