@@ -17,7 +17,7 @@ steps:
     auto_tag: true
     debug: true
     tags: [ "${DRONE_BRANCH}_${DRONE_COMMIT_SHA:0:7}","latest" ]
-    username: "ykk"
+    username: "botci"
     password:
       from_secret: password
   when:
