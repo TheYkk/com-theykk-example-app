@@ -1,4 +1,4 @@
-FROM theykk.com/library/go:1.13-alpine AS build-env
+FROM golang:1.14-alpine AS build-env
 WORKDIR /go/src/app
 
 ADD main.go /go/src/app/

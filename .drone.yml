@@ -5,15 +5,15 @@ name: linux-amd64
 
 steps:
 - name: test
-  image: theykk.com/library/go:1.13-alpine
+  image: golang:1.14-alpine
   commands:
   - CGO_ENABLED=0 GO111MODULE=off go test ./...
   
 - name: publish
   image: plugins/docker:18
   settings:
-    repo: theykk.com/ykk/drone-example
-    registry: theykk.com
+    repo: reg.theykk.com/ykk/drone-example
+    registry: reg.theykk.com
     auto_tag: true
     debug: true
     tags: [ "${DRONE_BRANCH}_${DRONE_COMMIT_SHA:0:7}","latest" ]
