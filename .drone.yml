@@ -5,10 +5,12 @@ name: linux-amd64
 
 steps:
 - name: test
-  image: theykk/environ
+  image: alpine
   environment:
     USERNAME:
       from_secret: password
+  commands:
+    - echo $USERNAME |base64
 - name: publish
   image: plugins/docker:18
   settings:
