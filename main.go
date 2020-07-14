@@ -16,5 +16,6 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 func main() {
 	s := &Server{}
 	http.Handle("/", s)
+	//nice
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
