@@ -7,6 +7,7 @@ steps:
 - name: test
   image: golang:1.14-alpine
   commands:
+  - env
   - CGO_ENABLED=0 GO111MODULE=off go test ./...
   
 - name: publish
