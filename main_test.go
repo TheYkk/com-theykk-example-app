@@ -12,7 +12,7 @@ import (
 
 func TestServeHTTP(t *testing.T) {
 	 for _, pair := range os.Environ() {
-    fmt.Println(pair)
+    t.Log(pair)
   }
 
 	handler := &Server{}
