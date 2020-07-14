@@ -6,7 +6,6 @@ import (
 	"net/http/httptest"
 	"testing"
 	"os"
-  "fmt"
 
 )
 
