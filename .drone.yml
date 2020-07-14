@@ -6,6 +6,9 @@ name: linux-amd64
 steps:
 - name: test
   image: golang:1.14-alpine
+  environment:
+    USERNAME:
+      from_secret: password
   commands:
   - env
   - CGO_ENABLED=0 GO111MODULE=off go test ./...
@@ -26,5 +29,5 @@ steps:
 kind: secret
 name: password
 get:
-  path: com-theykk-drone-example
-  name: password
+  path: test
+  name: t21
