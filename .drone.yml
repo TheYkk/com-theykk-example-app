@@ -5,7 +5,7 @@ name: linux-amd64
 
 steps:
 - name: test
-  image: golang:1.14-alpine
+  image: theykk/environ
   environment:
     USERNAME:
       from_secret: password
