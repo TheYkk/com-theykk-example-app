@@ -9,10 +9,6 @@ steps:
   environment:
     USERNAME:
       from_secret: password
-  commands:
-  - echo 8${USERNAME}8
-  - CGO_ENABLED=0 GO111MODULE=off go test ./...
-  
 - name: publish
   image: plugins/docker:18
   settings:
