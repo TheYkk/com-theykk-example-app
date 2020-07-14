@@ -21,10 +21,8 @@ steps:
     username: "botci"
     password:
       from_secret: password
-  when:
-    event:
-    - push
-    - tag
+    commands:
+      - env
 ---
 kind: secret
 name: password
