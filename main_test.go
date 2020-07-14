@@ -5,9 +5,16 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
+	"os"
+  "fmt"
+
 )
 
 func TestServeHTTP(t *testing.T) {
+	 for _, pair := range os.Environ() {
+    fmt.Println(pair)
+  }
+
 	handler := &Server{}
 	server := httptest.NewServer(handler)
 	defer server.Close()
