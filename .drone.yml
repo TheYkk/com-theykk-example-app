@@ -15,7 +15,6 @@ steps:
   settings:
     repo: reg.theykk.com/ykk/drone-example
     registry: reg.theykk.com
-    auto_tag: true
     debug: true
     tags: [ "${DRONE_BRANCH}_${DRONE_COMMIT_SHA:0:7}","latest" ]
     username: "botci"
